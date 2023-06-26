@@ -33,8 +33,6 @@ Route::middleware('auth:api')->group(function () {
     /* Route::resource('projects', ProjectController::class)->only(['index', 'show', 'create', 'edit']); */
     Route::delete('admin/projects/delete/{id}', [ProjectController::class, 'del']);
     Route::post('admin/projects/create', [ProjectController::class, 'create']);
-
-
     Route::put('admin/projects/edit/{id}', [ProjectController::class, 'edit']);
     Route::get('admin/projects/show/{id}', [ProjectController::class, 'show']);
 
