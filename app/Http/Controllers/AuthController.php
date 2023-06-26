@@ -11,6 +11,41 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
+    public function index() {
+        $users = User::orderBy('id', 'asc')->paginate(12);
+        $viewAllIndex = $viewIndex = $editIndex = $deleteIndex = true;
+        $msg = '';
+
+        //if auth user does not have 'Products-all' permission
+        if(Auth::user()->cannot('viewAll', User::class)) {
+            $viewAllIndex = false;
+            $msg = 'You do not have permissions to view products page';
+        }
+
+        //if auth user do not have 'Products-view' permission
+        if(Auth::user()->cannot('view', User::class)) {
+            $viewIndex = false;
+        }
+
+        //if auth user do not have 'Products-edit' permission
+        if(Auth::user()->cannot('edit', User::class)) {
+            $editIndex = false;
+        }
+
+        //if auth user do not have 'Products-delete' permission
+        if(Auth::user()->cannot('delete', User::class)) {
+            $deleteIndex = false;
+        }
+
+        return response()->Json([
+            'viewAll_index' => $viewAllIndex,
+            'view_index' => $viewIndex,
+            'edit_index' => $editIndex,
+            'delete_index' => $deleteIndex,
+            'message' => $msg,
+            'data' => $users,
+        ]);
+    }
     public function login(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -70,20 +105,20 @@ class AuthController extends Controller
     public function edit(Request $request, $id)  {
         $index = true;
         $msg = 'Project edited successfully';
-        $project = User::find($id);
-        if($project != ''){
+        $user = User::find($id);
+        if($user != ''){
             if(Auth::user()->cannot('edit', User::class)) {
                 $index = false;
-                $msg = 'You do not have access to edit product';
+                $msg = 'You do not have access to edit user';
             }else{
                 $validatedData = $request->validate([
                     'name' => 'required|string',
                     'email' => 'required|string',
                 ]);
                 // Actualiza los datos del proyecto
-                $project->email = $request->input('name');
-                $project->email = $request->input('email');
-                $project->save();
+                $user->email = $request->input('name');
+                $user->email = $request->input('email');
+                $user->save();
                 $msg = 'Project edited successfully';
             }
         }else{
@@ -92,6 +127,23 @@ class AuthController extends Controller
         return response()->Json([
             'index' => $index,
             'message' => $msg,
+        ]);
+    }
+    public function show($id) {
+        $product = User::find($id);
+        $index = true;
+        $msg = '';
+
+        //if auth user do not have 'Products-view' permission
+        if(Auth::user()->cannot('view', User::class)) {
+            $index = false;
+            $msg = 'You do not have access to view product details';
+        }
+
+        return response()->Json([
+            'index' => $index,
+            'message' => $msg,
+            'data' => $product,
         ]);
     }
 }

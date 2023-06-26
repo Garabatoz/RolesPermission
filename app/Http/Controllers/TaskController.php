@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
     public function index() {
-        $projects = Project::orderBy('id', 'asc')->paginate(12);
+        $tasks = Task::orderBy('id', 'asc')->paginate(12);
         $viewAllIndex = $viewIndex = $editIndex = $deleteIndex = true;
         $msg = '';
 
         //if auth user does not have 'Products-all' permission
-        if(Auth::user()->cannot('viewAll', Project::class)) {
+        if(Auth::user()->cannot('viewAll', Task::class)) {
             $viewAllIndex = false;
             $msg = 'You do not have permissions to view products page';
         }
 
         //if auth user do not have 'Products-view' permission
-        if(Auth::user()->cannot('view', Project::class)) {
+        if(Auth::user()->cannot('view', Task::class)) {
             $viewIndex = false;
         }
 
         //if auth user do not have 'Products-edit' permission
-        if(Auth::user()->cannot('edit', Project::class)) {
+        if(Auth::user()->cannot('edit', Task::class)) {
             $editIndex = false;
         }
 
         //if auth user do not have 'Products-delete' permission
-        if(Auth::user()->cannot('delete', Project::class)) {
+        if(Auth::user()->cannot('delete', Task::class)) {
             $deleteIndex = false;
         }
 
@@ -40,16 +40,16 @@ class ProjectController extends Controller
             'edit_index' => $editIndex,
             'delete_index' => $deleteIndex,
             'message' => $msg,
-            'data' => $projects,
+            'data' => $tasks,
         ]);
     }
 
     public function show($id) {
-        $project = Project::find($id);
+        $task = Task::find($id);
         $index = true;
-        if($project != null){
+        if($task != null){
             $msg = 'Found the project';
-            if(Auth::user()->cannot('view', Project::class)) {
+            if(Auth::user()->cannot('view', Task::class)) {
                 $index = false;
                 $msg = 'You do not have access to view product details';
             }
@@ -59,7 +59,7 @@ class ProjectController extends Controller
         return response()->Json([
             'index' => $index,
             'message' => $msg,
-            'data' => $project,
+            'data' => $task,
         ]);
     }
 
@@ -67,46 +67,46 @@ class ProjectController extends Controller
         $index = true;
 
         //if auth user do not have 'Products-create' permission
-        if(Auth::user()->cannot('create', Project::class)) {
+        if(Auth::user()->cannot('create', Task::class)) {
             $index = false;
             $msg = 'You do not have access to create new product';
         }else{
-            $project = new Project;
-            $project->title = $request->input('title');
-            $project->user_id = $request->input('user_id');
-            $project->description = $request->input('description');
-            $project->date_start = $request->input('date_start');
-            $project->date_end = $request->input('date_end');
-            $project->save();
+            $task = new Task;
+            $task->title = $request->input('title');
+            $task->project_id = $request->input('project_id');
+            $task->description = $request->input('description');
+            $task->status = $request->input('status');
+            $task->save();
+            $msg = 'Project created successfully';
         }
 
         return response()->Json([
             'index' => $index,
-            'message' => 'Project created successfully',
+            'message' => $msg,
         ]);
     }
 
     public function edit(Request $request, $id)  {
         $index = true;
-        $project = Project::findOrFail($id);
-        if($project != ''){
-            if(Auth::user()->cannot('edit', Project::class)) {
+        $task = Task::find($id);
+        $msg = $task;
+        if($task != null){
+            if(Auth::user()->cannot('edit', Task::class)) {
                 $index = false;
                 $msg = 'You do not have access to edit product';
             }else{
                 $validatedData = $request->validate([
                     'title' => 'required|string',
-                    'description' => 'required|string',
-                    'date_start' => 'required|date',
-                    'date_end' => 'required|date',
+                    'project_id' => 'required|string',
+                    'description' => 'required|date',
+                    'status' => 'required|date',
                 ]);
                 // Actualiza los datos del proyecto
-                $project->title = $validatedData['title'];
-                $project->user_id = $request->input('user_id');
-                $project->description = $validatedData['description'];
-                $project->date_start = $validatedData['date_start'];
-                $project->date_end = $validatedData['date_end'];
-                $project->save();
+                $task->title = $validatedData('title');
+                $task->project_id = $validatedData('project_id');
+                $task->description = $validatedData('description');
+                $task->status = $validatedData('status');
+                $task->save();
                 $msg = 'Project edited successfully';
             }
         }else{
@@ -119,16 +119,16 @@ class ProjectController extends Controller
     }
 
     public function del($id) {
-        $project = Project::find($id);
+        $task = Task::find($id);
         $index = true;
 
-        if($project != null){
+        if($task != null){
         //if auth user do not have 'Products-delete' permission
-            if(Auth::user()->cannot('delete', Project::class)) {
+            if(Auth::user()->cannot('delete', Task::class)) {
                 $index = false;
                 $msg = 'You do not have access to delete product';
             }else{
-                $project->delete();
+                $task->delete();
                 $msg = 'Project deleted successfully';
             }
         }else{
@@ -137,27 +137,6 @@ class ProjectController extends Controller
         return response()->Json([
             'index' => $index,
             'message' => $msg,
-        ]);
-    }
-
-    public function showTask($id){
-        $proyecto = Project::findOrFail($id);
-        $tareas = $proyecto->tasks;
-        // Obtener la cantidad de tareas
-        $cantidadTareas = $tareas->count();
-        $tareasArray = [];
-
-        // Recorrer las tareas y obtener su información
-        foreach ($tareas as $tarea) {
-            $titulo = $tarea->titulo;
-            $descripcion = $tarea->descripcion;
-            $estado = $tarea->estado;
-        }
-
-        return response()->json([
-            'proyecto' => $proyecto,
-            'cantidad_tareas' => $cantidadTareas,
-            'tareas' => $tareasArray,
         ]);
     }
 }
