@@ -23,7 +23,6 @@ p {
 
 #login-container .login {
   width: 40%;
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
   margin: auto;
@@ -90,43 +89,22 @@ p {
 
 .loader .loading:after {
   content: " .";
-  -webkit-animation: dots 1s steps(5, end) infinite;
-          animation: dots 1s steps(5, end) infinite;
-}
-
-@-webkit-keyframes dots {
-  0%, 20% {
-    color: white;
-    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
-  }
-
-  40% {
-    color: #000;
-    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
-  }
-
-  60% {
-    text-shadow: 0.25em 0 0 #000, 0.5em 0 0 white;
-  }
-
-  80%, 100% {
-    text-shadow: 0.25em 0 0 #000, 0.5em 0 0 #000;
-  }
+  animation: dots 1s steps(5, end) infinite;
 }
 
 @keyframes dots {
   0%, 20% {
-    color: white;
-    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+    color: rgb(255, 255, 255);
+    text-shadow: 0.25em 0 0 rgb(255, 255, 255), 0.5em 0 0 rgb(255, 255, 255);
   }
 
   40% {
     color: #000;
-    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+    text-shadow: 0.25em 0 0 rgb(255, 255, 255), 0.5em 0 0 rgb(255, 255, 255);
   }
 
   60% {
-    text-shadow: 0.25em 0 0 #000, 0.5em 0 0 white;
+    text-shadow: 0.25em 0 0 #000, 0.5em 0 0 rgb(255, 255, 255);
   }
 
   80%, 100% {
@@ -208,7 +186,6 @@ input.error {
 
 @media only screen and (max-width: 768px) {
   #sidebar {
-    height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
     background: none;
@@ -222,7 +199,6 @@ input.error {
   }
 
   #sidebar ul li {
-    width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
     font-size: 13px;

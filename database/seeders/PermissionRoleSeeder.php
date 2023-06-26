@@ -14,7 +14,7 @@ class PermissionRoleSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i <= 15; $i++) {
+        for($i = 1; $i <= 30; $i++) {
             $data = [
                 'role_id' => 1,
                 'permission_id' => $i,

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Models\Role;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\Project;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,7 +32,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -45,5 +45,10 @@ class User extends Authenticatable
 
     public function role() {
         return $this->hasOne(Role::class, 'user_id');
+    }
+
+    public function project()
+    {
+        return $this->hasMany(Project::class);
     }
 }

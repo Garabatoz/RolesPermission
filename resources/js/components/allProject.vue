@@ -18,13 +18,10 @@
             <thead class="thead-dark">
                 <tr>
                     <th>#</th>
-                    <th>Brand</th>
-                    <th>Categ</th>
-                    <th>Model</th>
-                    <th>Price</th>
-                    <th>Discount</th>
-                    <th>Discount Price</th>
-                    <th>Rating</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date Star</th>
+                    <th>Date End</th>
                     <th>Query</th>
                 </tr>
             </thead>
@@ -33,17 +30,14 @@
                     <td>
                         {{ (products.data.current_page - 1) * 12 + index + 1 }}
                     </td>
-                    <td>{{ product.brand }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.model }}</td>
-                    <td>$ {{ product.price }}</td>
-                    <td>{{ product.discount }}%</td>
-                    <td>$ {{ product.discount_price }}</td>
-                    <td>{{ product.rating }}</td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.date_start }}</td>
+                    <td>{{ product.date_end }}</td>
                     <td class="d-flex flex-row justify-content-center">
                         <router-link
                             :to="{
-                                name: 'viewProduct',
+                                name: 'viewProject',
                                 params: { id: product.id },
                             }"
                             class="bg-primary text-white p-1 mr-1 cursor-pointer border-radius-5px"
@@ -53,7 +47,7 @@
                         </router-link>
                         <router-link
                             :to="{
-                                name: 'editProduct',
+                                name: 'editEdit',
                                 params: { id: product.id },
                             }"
                             class="bg-success text-white p-1 mr-1 cursor-pointer border-radius-5px"
@@ -63,7 +57,7 @@
                         </router-link>
                         <router-link
                             :to="{
-                                name: 'deleteProduct',
+                                name: 'deleteProject',
                                 params: { id: product.id },
                             }"
                             class="bg-danger text-white p-1 cursor-pointer border-radius-5px"
@@ -112,9 +106,9 @@ export default {
             }
             axios
                 .get('api/admin?page=' + page, {
-                    headers: {
-                        'Authorization': 'Bearer ' + '"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiY2FhOWEzZWNjNWEwOGUwNmJlOGIxYTMzYjhjZTkzNmQ3MWIzMzQzYWJmYmY2ODU0YWYzMDUwOTliNWY4NTI2Nzc0ZjIzODgyMGRiMmY5NDYiLCJpYXQiOjE2ODc3MjU5MTIuNjY1NTYyLCJuYmYiOjE2ODc3MjU5MTIuNjY1NTY1LCJleHAiOjE3MTkzNDgzMTIuNjU3MDc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.YDQLByOtJ-y-3Qcgm9AYhSFCljzEdyC-TXfWakf--U6tADw-ZduZz1xDx8EnPzrb9r8HjiAwSgG6VXHxOGBH_BYz1Q6cm384lagw6kaW4J2IQyLcgzyCu9GA69tLOmQ7cI8pWpv6mOMOtTRwhDqmCAoVRWGVwsHb-TA-xl7MzC9RVXZYZnDK_67CKcYmserkhEV_R949boXR6X-qqHxjtaSZ8Sp0vCgtzOAiM5nYu94QiUu7THJ85yGPBy0NmXvQPCDFl6fuAhIDB0x3fE-AyRmMgYvLd9uVqNz7n3l7dQEe2wT-W6VXbERwS6wo8wScPKo2tMsF-fW_GIB2UaNC3eqEFoHdaSd84IsbG9fkRgscFVmgIBx-KTCePkHaeWxPIn3y67mPNPjq7DCIN6Vma4sfUi1Zjz1FteIuR5qe_7pMq87GtboTTfSh16pSMTMJlb1aHNv9Y6QXc-fEwt81hETvsDQZKqtQNTfBYRFjAcMGigpOlIp4jFysVDM_WZ8E3PHwBA8PYnHRf9iTnJJL5wwaL51tIgZH04wPyQzPQtek9iMY0XOXTq5HB7z5-36NrHvVvXqOSPUC-p5v9AFwj0ntb1NCKSWCBosA_i6XLcBSshw0PtuGfUM6cFT2RilwnEUu1reXwZ3l28fWYx-KkmmmI0bF4Jrm7du6k8WkMoA"'
-                    }
+                    /* headers: {
+                        'Authorization': 'Bearer ' + "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTg1Y2VhZDY5NjQyMTI4ZDJkYmY0YTE4NzE5ZTFiODNkODNmYTFjMTA0MmYwMGRhN2VjODMxNmE2ZTQ4MzdjMDczOGIyMDBkN2QxYTQ1ZDEiLCJpYXQiOjE2ODc3MjczOTguODEyNjEzLCJuYmYiOjE2ODc3MjczOTguODEyNjE3LCJleHAiOjE3MTkzNDk3OTguODAzODM2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.bkFhsNp526kPazm_QhwqdEu8dTc8-B2kuAcdg7A9i2QlAwxU6iHOMpu5I5hteyLvlHkSzsDbnUkz7gPZMqFHqOnTGHXZN4cl94-4TLkN-NEckvr7RvlXW9anWkVURk5W4B6fk6IYA3YE2IsTyu2yM7yyjObhvergbUbN0JVYn6_h-C3fK-TAx2k4cQaNJNX_W0AGkJPxtooUNW8jIT8WtpzR3RJHjfkqBc00BSGVVVJmJ-0_bzuQdswMsoLqdTcftxfYXDZyD6CmdeeA14nW1iUsTZf3lWiVO6fliMnZrvbe6WhmxBfbw8G6YzbXewvpPBk6sD2ApZ8NaGE16PKtdR4cSmY1fNnR12392CkkTTS1MPA-NIj_MNdIKKXCMqboMWY8B2BV1cpwK0yp_U2SqimzMDAC4TGjlDl45otZDOtZQ59PxpiNi-3NIKH95dh4xXJAppjna3Jg3Fq8ulMDS0ahcQVidsE-I5G5HgWoD-1pE4Y40jc0RC1MeNxr8vO03RaHrsnDeXJVWBfSEKYgDttPDWUhTyWEAEFYqA0jDXwqdxLB_cQqSG9tp8KvwhkOMoCDUx2vZnrFa3CqbApBn2XXStL3DpNGEQcK2KQb7Xxv8EbQfr4PYoZvJtPj293wN0y6G1IcenR54o4mx3BcPkhDYQK2sj0SNvKZxbM3TVA",
+                    } */
                 })
                 .then(response => {
                     if (response.status == 200) {
@@ -130,6 +124,7 @@ export default {
 
     created() {
         this.getProducts();
+        window.localStorage.getItem('user');
     },
 };
 </script>

@@ -8,6 +8,7 @@ use Database\Seeders\UserSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\PermissionRoleSeeder;
+use Database\Seeders\ProjectSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ProjectSeeder::class);
         $this->call(PermissionRoleSeeder::class);
     }
 }

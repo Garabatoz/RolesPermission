@@ -1,7 +1,12 @@
-import AllProducts from '../components/allProducts';
-import NewProduct from '../Components/newProduct';
-import ViewProduct from '../Components/viewProduct';
-import EditProduct from '../Components/editProduct';
+/* import AllProducts from '../components/allProducts'; */
+import AllProjects from '../components/allProject';
+import NewProject from '../components/newProject';
+import ViewProject from '../components/viewProject';
+import EditProject from '../components/editProject';
+import DeleteProject from '../components/delPro';
+import NewProduct from '../components/newProduct';
+import ViewProduct from '../components/viewProduct';
+import EditProduct from '../components/editProduct';
 import DeleteProduct from '../components/delPro';
 import Roles from '../components/roles';
 import NewRole from '../components/newRole';
@@ -13,14 +18,13 @@ import ViewPermission from '../components/viewPermission';
 import EditPermission from '../components/editPermission';
 
 const routes = [
-    {
+    /* {
         path: '/admin',
         components: {
             default: AllProducts,
         },
         name: 'products',
     },
-
     {
         path: '/admin/products',
         components: {
@@ -59,6 +63,54 @@ const routes = [
             default: DeleteProduct,
         },
         name: 'deleteProduct',
+    },
+
+    */
+    {
+        path: '/admin',
+        components: {
+            default: AllProjects,
+        },
+        name: 'projects',
+    },
+    {
+        path: '/admin/projects',
+        components: {
+            default: AllProjects,
+        },
+        name: 'allProjects',
+    },
+
+    {
+        path: '/admin/projects/create',
+        components: {
+            default: NewProject,
+        },
+        name: 'createProjects',
+    },
+
+    {
+        path: '/admin/projects/:id',
+        components: {
+            default: ViewProject,
+        },
+        name: 'viewProject',
+    },
+
+    {
+        path: '/admin/projects/:id/edit',
+        components: {
+            default: EditProject,
+        },
+        name: 'editProject',
+    },
+
+    {
+        path: '/admin/projects/delete',
+        components: {
+            default: DeleteProject,
+        },
+        name: 'deleteProject',
     },
 
     {

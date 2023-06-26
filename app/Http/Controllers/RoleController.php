@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class RoleController extends Controller
 {
     public function index() {
-        
+
         $roles = Role::with('permissions')->orderBy('id', 'asc')->get();
         $viewAllIndex = $viewIndex = $editIndex = $deleteIndex = true;
         $msg = '';
@@ -21,7 +21,7 @@ class RoleController extends Controller
             $viewAllIndex = false;
             $msg = 'You do not have permissions to view roles page';
         }
-        
+
         //if auth user do not have 'Roles-view' permission
         if(Auth::user()->cannot('view', Role::class)) {
             $viewIndex = false;
@@ -56,13 +56,13 @@ class RoleController extends Controller
         //if auth user do not have 'Roles-view' permission
         if(Auth::user()->cannot('view', Role::class)) {
             $index = false;
-            $msg = 'You do not have access to view role details';       
+            $msg = 'You do not have access to view role details';
         }
 
         return response()->Json([
             'index' => $index,
             'message' => $msg,
-            'data' => $role,            
+            'data' => $role,
         ]);
     }
 
@@ -74,7 +74,7 @@ class RoleController extends Controller
         if(Auth::user()->cannot('create', Role::class)) {
             $index = false;
             $msg = 'You do not have access to create new Role';
-        }       
+        }
 
         return response()->json([
             'index' => $index,
@@ -101,9 +101,9 @@ class RoleController extends Controller
             $message = [];
 
             foreach(array_values($validator->errors()->toArray()) as $val) {
-                $message[] = $val;           
+                $message[] = $val;
             }
-            
+
             $res = [
                 'response_index' => 'true',
                 'response_type' => 'Error',
@@ -173,7 +173,7 @@ class RoleController extends Controller
                 'response_index' => true,
                 'response_type' => 'Error',
                 'response_message' => ['Super Admin account can not be edited to deleted'],
-            ]);           
+            ]);
         }
 
 
@@ -217,7 +217,7 @@ class RoleController extends Controller
                 'response_index' => true,
                 'response_type' => 'Error',
                 'response_message' => ['Super Admin account can not be edited to deleted'],
-            ]);           
+            ]);
         }
 
         if($role->delete()){

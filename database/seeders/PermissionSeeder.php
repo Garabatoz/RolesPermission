@@ -16,6 +16,11 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissions = [
+            'Projects-all',
+            'Projects-view',
+            'Projects-create',
+            'Projects-edit',
+            'Projects-delete',
             'Products-all',
             'Products-view',
             'Products-create',
@@ -31,6 +36,16 @@ class PermissionSeeder extends Seeder
             'Permissions-create',
             'Permissions-edit',
             'Permissions-delete',
+            'Users-all',
+            'Users-view',
+            'Users-create',
+            'Users-edit',
+            'Users-delete',
+            'Tasks-all',
+            'Tasks-view',
+            'Tasks-create',
+            'Tasks-edit',
+            'Tasks-delete',
         ];
 
         foreach ($permissions as $permission) {

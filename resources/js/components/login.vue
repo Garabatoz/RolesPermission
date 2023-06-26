@@ -61,7 +61,8 @@ export default {
         ...mapActions(['login']),
 
         loginSubmit() {
-            this.login(this.loginData);
+            this.login(this.loginData)
+            window.localStorage.setItem('user','sadmin@sadmin.com')
             //this.loginData.password = ''
         },
 

@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class ProjectPolicy
 {
     use HandlesAuthorization;
 
@@ -23,7 +23,7 @@ class ProductPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Products-all') {
+            if($perm->name == 'Projects-all') {
                 return true;
             }
         }
@@ -35,7 +35,7 @@ class ProductPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Products-view') {
+            if($perm->name == 'Projects-view') {
                 return true;
             }
         }
@@ -47,7 +47,7 @@ class ProductPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Products-create') {
+            if($perm->name == 'Projects-create') {
                 return true;
             }
         }
@@ -57,9 +57,9 @@ class ProductPolicy
 
     public function edit(User $user) {
         $perms = $user->role->permissions->all();
-        echo "buenas";
+
         foreach($perms as $perm) {
-            if($perm->name == 'Products-edit') {
+            if($perm->name == 'Projects-edit') {
                 return true;
             }
         }
@@ -71,7 +71,7 @@ class ProductPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Products-delete') {
+            if($perm->name == 'Projects-delete') {
                 return true;
             }
         }

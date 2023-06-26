@@ -3,9 +3,8 @@ require('./bootstrap');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
-
-import Router from './Router';
-import Store from './Store';
+import Router from '../js/Router';
+import Store from '../js/Store';
 
 //font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -18,7 +17,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
-import Cms from './Components/cms';
+import Cms from '../js/components/cms.vue';
 
 const cms = new Vue({
     el: '#app',
