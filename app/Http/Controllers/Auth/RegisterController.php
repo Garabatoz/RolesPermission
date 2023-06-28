@@ -71,4 +71,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
     }
+    public function index()
+    {
+        $users = User::all();
+    }
 }

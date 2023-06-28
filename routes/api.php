@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PermissionController;
@@ -33,7 +31,6 @@ Route::middleware('auth:api')->group(function () {
     */
     Route::get('admin/', [ProjectController::class, 'index']);
     /* Route::resource('projects', ProjectController::class)->only(['index', 'show', 'create', 'edit']); */
-
     Route::delete('admin/projects/delete/{id}', [ProjectController::class, 'del']);
     Route::post('admin/projects/create', [ProjectController::class, 'create']);
     Route::put('admin/projects/edit/{id}', [ProjectController::class, 'edit']);
@@ -43,21 +40,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('admin/permissions', PermissionController::class);
 
     Route::put('admin/users/edit/{id}', [AuthController::class, 'edit']);
-    Route::get('admin/users/show/{id}', [AuthController::class, 'show']);
 
-    Route::put('admin/tasks/edit/{id}', [TaskController::class, 'edit']);
-    Route::get('admin/tasks/show/{id}', [TaskController::class, 'show']);
-    Route::post('admin/tasks/create', [TaskController::class, 'create']);
-    Route::delete('admin/tasks/delete/{id}', [TaskController::class, 'del']);
-
-    Route::get('admin/project/{id}/tasks', [ProjectController::class, 'showTask']);
-
-    /* Route::get('admin/project/{id}/tasks', function ($id) {
-        $project = Project::find($id);
-        $cantidadTareas = $project->tasks()->count();
-
-        return response()->json(['cantidad_tareas' => $cantidadTareas]);
-    }); */
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'admin']], function() {

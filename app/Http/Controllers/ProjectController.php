@@ -139,25 +139,4 @@ class ProjectController extends Controller
             'message' => $msg,
         ]);
     }
-
-    public function showTask($id){
-        $proyecto = Project::findOrFail($id);
-        $tareas = $proyecto->tasks;
-        // Obtener la cantidad de tareas
-        $cantidadTareas = $tareas->count();
-        $tareasArray = [];
-
-        // Recorrer las tareas y obtener su información
-        foreach ($tareas as $tarea) {
-            $titulo = $tarea->titulo;
-            $descripcion = $tarea->descripcion;
-            $estado = $tarea->estado;
-        }
-
-        return response()->json([
-            'proyecto' => $proyecto,
-            'cantidad_tareas' => $cantidadTareas,
-            'tareas' => $tareasArray,
-        ]);
-    }
 }
