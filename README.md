@@ -5,4 +5,5 @@ This repository uses PHP Laravel and Javascript Vue.js frameworks to implement R
 ## Logging In
 
 ## For install
-1. php artisan passport:client --personal
+1. php artisan passport:keys
+2. php artisan passport:client --personal
