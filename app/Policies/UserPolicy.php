@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Project;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProjectPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -24,7 +23,7 @@ class ProjectPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Projects-all') {
+            if($perm->name == 'Users-all') {
                 return true;
             }
         }
@@ -36,7 +35,7 @@ class ProjectPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Projects-view') {
+            if($perm->name == 'Users-view') {
                 return true;
             }
         }
@@ -48,7 +47,7 @@ class ProjectPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Projects-create') {
+            if($perm->name == 'Users-create') {
                 return true;
             }
         }
@@ -60,7 +59,7 @@ class ProjectPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Projects-edit') {
+            if($perm->name == 'Users-edit') {
                 return true;
             }
         }
@@ -72,7 +71,7 @@ class ProjectPolicy
         $perms = $user->role->permissions->all();
 
         foreach($perms as $perm) {
-            if($perm->name == 'Projects-delete') {
+            if($perm->name == 'Users-delete') {
                 return true;
             }
         }

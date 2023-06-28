@@ -14649,35 +14649,35 @@ var routes = [
     },
     name: 'allProducts',
 },
- {
+  {
     path: '/admin/products/create',
     components: {
         default: NewProduct,
     },
     name: 'createProducts',
 },
- {
+  {
     path: '/admin/products/:id',
     components: {
         default: ViewProduct,
     },
     name: 'viewProduct',
 },
- {
+  {
     path: '/admin/products/:id/edit',
     components: {
         default: EditProduct,
     },
     name: 'editProduct',
 },
- {
+  {
     path: '/admin/products/delete',
     components: {
         default: DeleteProduct,
     },
     name: 'deleteProduct',
 },
- */
+  */
 {
   path: '/admin',
   components: {
